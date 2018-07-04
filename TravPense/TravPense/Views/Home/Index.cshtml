@@ -4,8 +4,10 @@
 }
 @if (!SignInManager.IsSignedIn(User))
 {
-    <div>
+    <div class="zoom1">
         <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
+    </div>
+    <div class="zoom1">
         <a asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
     </div>
 }
