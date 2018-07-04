@@ -14,6 +14,7 @@ using TravPense.Services;
 
 namespace TravPense
 {
+    
     public class Startup
     {
         public Startup(IConfiguration configuration)
