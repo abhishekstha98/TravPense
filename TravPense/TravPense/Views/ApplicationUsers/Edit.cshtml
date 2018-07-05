@@ -19,6 +19,11 @@
                 <span asp-validation-for="UserName" class="text-danger"></span>
             </div>
             <div class="form-group">
+                <label asp-for="UserType" class="control-label"></label>
+                <input asp-for="UserType" class="form-control" />
+                <span asp-validation-for="UserType" class="text-danger"></span>
+            </div>
+            <div class="form-group">
                 <label asp-for="NormalizedUserName" class="control-label"></label>
                 <input asp-for="NormalizedUserName" class="form-control" />
                 <span asp-validation-for="NormalizedUserName" class="text-danger"></span>
