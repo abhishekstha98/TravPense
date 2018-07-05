@@ -6,13 +6,11 @@ using System.Threading.Tasks;
 
 namespace TravPense.Models
 {
-    interface LocationModel
+    public class Location
     {
-        
-        int GetId();
-        string GetLocType();
-        void SetLocType(string value);
-
-        string Destination();
+        [Key]
+        public int locid { get; set; }
+        public string Loctype { get; set; }
+        public string Destination { get; set; }
     }
 }

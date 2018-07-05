@@ -22,5 +22,11 @@ namespace TravPense.Data
             // For example, you can rename the ASP.NET Identity table names and more.
             // Add your customizations after calling base.OnModelCreating(builder);
         }
+
+        public DbSet<TravPense.Models.HotelModel> HotelModel { get; set; }
+
+        public DbSet<TravPense.Models.Location> Location { get; set; }
+
+        public DbSet<TravPense.Models.ActivitiesModel> ActivitiesModel { get; set; }
     }
 }

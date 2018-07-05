@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace TravPense.Models
 {
-    public class HotelModel:LocationModel
+    public class HotelModel
     {
         [Key]
         public int Hotelid { get; set; }
         public string HotelName { get; set; }
-        [ForeignKey("LocationModel")]
+
+        [ForeignKey("Location")]
         public string Destination { get; set; }
 
         public string Contact { get; set; }
@@ -21,24 +22,5 @@ namespace TravPense.Models
 
         public int MaxPrice { get; set; }
 
-        public int GetId()
-        {
-            throw new NotImplementedException();
-        }
-
-        public string GetLocType()
-        {
-            throw new NotImplementedException();
-        }
-
-        public void SetLocType(string value)
-        {
-            throw new NotImplementedException();
-        }
-
-        string LocationModel.Destination()
-        {
-            throw new NotImplementedException();
-        }
     }
 }

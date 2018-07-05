@@ -14,6 +14,21 @@ namespace TravPense.Controllers
         {
             return View();
         }
+        public IActionResult Location()
+        {
+
+            return View();
+        }
+
+        public IActionResult Hotel()
+        {
+            return View();
+        }
+        public IActionResult Activities()
+        {
+            
+            return View();
+        }
 
         public IActionResult About()
         {
