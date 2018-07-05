@@ -18,6 +18,12 @@
             @Html.DisplayFor(model => model.UserName)
         </dd>
         <dt>
+            @Html.DisplayNameFor(model => model.UserType)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.UserType)
+        </dd>
+        @*<dt>
             @Html.DisplayNameFor(model => model.NormalizedUserName)
         </dt>
         <dd>
@@ -94,7 +100,7 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.AccessFailedCount)
-        </dd>
+        </dd>*@
     </dl>
     
     <form asp-action="Delete">
