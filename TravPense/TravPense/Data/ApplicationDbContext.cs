@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using TravPense.Models;
+using TravPense.Models.AccountViewModels;
 
 namespace TravPense.Data
 {
@@ -27,6 +28,7 @@ namespace TravPense.Data
         public DbSet<ActivitiesModel> activitiesModels { get; set; }
         public DbSet<HotelModel> hotelModels { get; set; }
         public DbSet<Location> locations { get; set; }
+       
 
     }
 }

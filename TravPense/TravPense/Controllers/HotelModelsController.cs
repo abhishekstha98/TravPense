@@ -11,7 +11,7 @@ using TravPense.Models;
 
 namespace TravPense.Controllers
 {
-    [Authorize(Roles = "SuperAdmin,HotelManager")]
+    [Authorize(Roles = "superadmin,hm")]
     public class HotelModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -24,7 +24,7 @@ namespace TravPense.Controllers
         // GET: HotelModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.HotelModel.ToListAsync());
+            return View(await _context.hotelModels.ToListAsync());
         }
 
         // GET: HotelModels/Details/5
@@ -35,7 +35,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var hotelModel = await _context.HotelModel
+            var hotelModel = await _context.hotelModels
                 .SingleOrDefaultAsync(m => m.Hotelid == id);
             if (hotelModel == null)
             {
@@ -75,7 +75,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var hotelModel = await _context.HotelModel.SingleOrDefaultAsync(m => m.Hotelid == id);
+            var hotelModel = await _context.hotelModels.SingleOrDefaultAsync(m => m.Hotelid == id);
             if (hotelModel == null)
             {
                 return NotFound();
@@ -126,7 +126,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var hotelModel = await _context.HotelModel
+            var hotelModel = await _context.hotelModels
                 .SingleOrDefaultAsync(m => m.Hotelid == id);
             if (hotelModel == null)
             {
@@ -141,15 +141,15 @@ namespace TravPense.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hotelModel = await _context.HotelModel.SingleOrDefaultAsync(m => m.Hotelid == id);
-            _context.HotelModel.Remove(hotelModel);
+            var hotelModel = await _context.hotelModels.SingleOrDefaultAsync(m => m.Hotelid == id);
+            _context.hotelModels.Remove(hotelModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool HotelModelExists(int id)
         {
-            return _context.HotelModel.Any(e => e.Hotelid == id);
+            return _context.hotelModels.Any(e => e.Hotelid == id);
         }
     }
 }

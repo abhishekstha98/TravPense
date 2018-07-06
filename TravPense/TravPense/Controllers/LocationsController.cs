@@ -24,7 +24,7 @@ namespace TravPense.Controllers
         // GET: Locations
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Location.ToListAsync());
+            return View(await _context.locations.ToListAsync());
         }
 
         // GET: Locations/Details/5
@@ -35,7 +35,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var location = await _context.Location
+            var location = await _context.locations
                 .SingleOrDefaultAsync(m => m.locid == id);
             if (location == null)
             {
@@ -75,7 +75,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var location = await _context.Location.SingleOrDefaultAsync(m => m.locid == id);
+            var location = await _context.locations.SingleOrDefaultAsync(m => m.locid == id);
             if (location == null)
             {
                 return NotFound();
@@ -126,7 +126,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var location = await _context.Location
+            var location = await _context.locations
                 .SingleOrDefaultAsync(m => m.locid == id);
             if (location == null)
             {
@@ -141,15 +141,15 @@ namespace TravPense.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var location = await _context.Location.SingleOrDefaultAsync(m => m.locid == id);
-            _context.Location.Remove(location);
+            var location = await _context.locations.SingleOrDefaultAsync(m => m.locid == id);
+            _context.locations.Remove(location);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool LocationExists(int id)
         {
-            return _context.Location.Any(e => e.locid == id);
+            return _context.locations.Any(e => e.locid == id);
         }
     }
 }

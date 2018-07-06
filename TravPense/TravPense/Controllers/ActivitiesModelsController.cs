@@ -12,7 +12,7 @@ using TravPense.Models;
 namespace TravPense.Controllers
 {
     
-   
+   [Authorize(Roles ="superadmin,am")]
     public class ActivitiesModelsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -25,7 +25,7 @@ namespace TravPense.Controllers
         // GET: ActivitiesModels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ActivitiesModel.ToListAsync());
+            return View(await _context.activitiesModels.ToListAsync());
         }
 
         // GET: ActivitiesModels/Details/5
@@ -36,7 +36,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var activitiesModel = await _context.ActivitiesModel
+            var activitiesModel = await _context.activitiesModels
                 .SingleOrDefaultAsync(m => m.ActivityID == id);
             if (activitiesModel == null)
             {
@@ -76,7 +76,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var activitiesModel = await _context.ActivitiesModel.SingleOrDefaultAsync(m => m.ActivityID == id);
+            var activitiesModel = await _context.activitiesModels.SingleOrDefaultAsync(m => m.ActivityID == id);
             if (activitiesModel == null)
             {
                 return NotFound();
@@ -127,7 +127,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var activitiesModel = await _context.ActivitiesModel
+            var activitiesModel = await _context.activitiesModels
                 .SingleOrDefaultAsync(m => m.ActivityID == id);
             if (activitiesModel == null)
             {
@@ -142,15 +142,15 @@ namespace TravPense.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var activitiesModel = await _context.ActivitiesModel.SingleOrDefaultAsync(m => m.ActivityID == id);
-            _context.ActivitiesModel.Remove(activitiesModel);
+            var activitiesModel = await _context.activitiesModels.SingleOrDefaultAsync(m => m.ActivityID == id);
+            _context.activitiesModels.Remove(activitiesModel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ActivitiesModelExists(int id)
         {
-            return _context.ActivitiesModel.Any(e => e.ActivityID == id);
+            return _context.activitiesModels.Any(e => e.ActivityID == id);
         }
     }
 }
