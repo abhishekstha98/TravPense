@@ -184,6 +184,8 @@ namespace TravPense.Data.Migrations
 
                     b.Property<string>("UserType");
 
+                    b.Property<string>("UserType");
+
                     b.HasKey("Id");
 
                     b.HasIndex("NormalizedEmail")
