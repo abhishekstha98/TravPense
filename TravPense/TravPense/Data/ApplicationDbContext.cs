@@ -24,5 +24,9 @@ namespace TravPense.Data
         }
 
         public DbSet<TravPense.Models.ApplicationUser> ApplicationUser { get; set; }
+        public DbSet<ActivitiesModel> activitiesModels { get; set; }
+        public DbSet<HotelModel> hotelModels { get; set; }
+        public DbSet<Location> locations { get; set; }
+
     }
 }
