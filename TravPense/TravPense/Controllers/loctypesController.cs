@@ -11,86 +11,90 @@ using TravPense.Models;
 
 namespace TravPense.Controllers
 {
-    [Authorize(Roles ="superadmin")]
-    public class ApplicationUsersController : Controller
+    public class loctypesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ApplicationUsersController(ApplicationDbContext context)
+        public loctypesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: ApplicationUsers
+        [Authorize(Roles = "superadmin")]
+        // GET: loctypes
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ApplicationUser.ToListAsync());
+            return View(await _context.loctypes.ToListAsync());
+        }
+        public async Task<IActionResult> UserView()
+        {
+            return View(await _context.destinations.ToListAsync());
         }
 
-        // GET: ApplicationUsers/Details/5
-        public async Task<IActionResult> Details(string id)
+        // GET: loctypes/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var applicationUser = await _context.ApplicationUser
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
+            var loctype = await _context.loctypes
+                .SingleOrDefaultAsync(m => m.id == id);
+            if (loctype == null)
             {
                 return NotFound();
             }
 
-            return View(applicationUser);
+            return View(loctype);
         }
 
-        // GET: ApplicationUsers/Create
+        // GET: loctypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ApplicationUsers/Create
+        // POST: loctypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Create([Bind("id,Loctype")] loctype loctype)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(applicationUser);
+                _context.Add(loctype);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(applicationUser);
+            return View(loctype);
         }
 
-        // GET: ApplicationUsers/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: loctypes/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
+            var loctype = await _context.loctypes.SingleOrDefaultAsync(m => m.id == id);
+            if (loctype == null)
             {
                 return NotFound();
             }
-            return View(applicationUser);
+            return View(loctype);
         }
 
-        // POST: ApplicationUsers/Edit/5
+        // POST: loctypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Edit(int id, [Bind("id,Loctype")] loctype loctype)
         {
-            if (id != applicationUser.Id)
+            if (id != loctype.id)
             {
                 return NotFound();
             }
@@ -99,12 +103,12 @@ namespace TravPense.Controllers
             {
                 try
                 {
-                    _context.Update(applicationUser);
+                    _context.Update(loctype);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ApplicationUserExists(applicationUser.Id))
+                    if (!loctypeExists(loctype.id))
                     {
                         return NotFound();
                     }
@@ -115,41 +119,41 @@ namespace TravPense.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(applicationUser);
+            return View(loctype);
         }
 
-        // GET: ApplicationUsers/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: loctypes/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var applicationUser = await _context.ApplicationUser
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
+            var loctype = await _context.loctypes
+                .SingleOrDefaultAsync(m => m.id == id);
+            if (loctype == null)
             {
                 return NotFound();
             }
 
-            return View(applicationUser);
+            return View(loctype);
         }
 
-        // POST: ApplicationUsers/Delete/5
+        // POST: loctypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
-            _context.ApplicationUser.Remove(applicationUser);
+            var loctype = await _context.loctypes.SingleOrDefaultAsync(m => m.id == id);
+            _context.loctypes.Remove(loctype);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ApplicationUserExists(string id)
+        private bool loctypeExists(int id)
         {
-            return _context.ApplicationUser.Any(e => e.Id == id);
+            return _context.loctypes.Any(e => e.id == id);
         }
     }
 }

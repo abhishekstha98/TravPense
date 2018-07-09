@@ -11,86 +11,89 @@ using TravPense.Models;
 
 namespace TravPense.Controllers
 {
-    [Authorize(Roles ="superadmin")]
-    public class ApplicationUsersController : Controller
+    public class hotelsController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public ApplicationUsersController(ApplicationDbContext context)
+        public hotelsController(ApplicationDbContext context)
         {
             _context = context;
         }
-
-        // GET: ApplicationUsers
+        [Authorize(Roles = "superadmin")]
+        // GET: hotels
         public async Task<IActionResult> Index()
         {
-            return View(await _context.ApplicationUser.ToListAsync());
+            return View(await _context.hotels.ToListAsync());
         }
 
-        // GET: ApplicationUsers/Details/5
-        public async Task<IActionResult> Details(string id)
+        public async Task<IActionResult> UserView()
+        {
+            return View(await _context.destinations.ToListAsync());
+        }
+        // GET: hotels/Details/5
+        public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var applicationUser = await _context.ApplicationUser
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
+            var hotel = await _context.hotels
+                .SingleOrDefaultAsync(m => m.id == id);
+            if (hotel == null)
             {
                 return NotFound();
             }
 
-            return View(applicationUser);
+            return View(hotel);
         }
 
-        // GET: ApplicationUsers/Create
+        // GET: hotels/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: ApplicationUsers/Create
+        // POST: hotels/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Create([Bind("id,HotelName,Standard,PricePerDay")] hotel hotel)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(applicationUser);
+                _context.Add(hotel);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(applicationUser);
+            return View(hotel);
         }
 
-        // GET: ApplicationUsers/Edit/5
-        public async Task<IActionResult> Edit(string id)
+        // GET: hotels/Edit/5
+        public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
+            var hotel = await _context.hotels.SingleOrDefaultAsync(m => m.id == id);
+            if (hotel == null)
             {
                 return NotFound();
             }
-            return View(applicationUser);
+            return View(hotel);
         }
 
-        // POST: ApplicationUsers/Edit/5
+        // POST: hotels/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("Id,UserName,NormalizedUserName,Email,NormalizedEmail,EmailConfirmed,PasswordHash,SecurityStamp,ConcurrencyStamp,PhoneNumber,PhoneNumberConfirmed,TwoFactorEnabled,LockoutEnd,LockoutEnabled,AccessFailedCount")] ApplicationUser applicationUser)
+        public async Task<IActionResult> Edit(int id, [Bind("id,HotelName,Standard,PricePerDay")] hotel hotel)
         {
-            if (id != applicationUser.Id)
+            if (id != hotel.id)
             {
                 return NotFound();
             }
@@ -99,12 +102,12 @@ namespace TravPense.Controllers
             {
                 try
                 {
-                    _context.Update(applicationUser);
+                    _context.Update(hotel);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ApplicationUserExists(applicationUser.Id))
+                    if (!hotelExists(hotel.id))
                     {
                         return NotFound();
                     }
@@ -115,41 +118,41 @@ namespace TravPense.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(applicationUser);
+            return View(hotel);
         }
 
-        // GET: ApplicationUsers/Delete/5
-        public async Task<IActionResult> Delete(string id)
+        // GET: hotels/Delete/5
+        public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
             {
                 return NotFound();
             }
 
-            var applicationUser = await _context.ApplicationUser
-                .SingleOrDefaultAsync(m => m.Id == id);
-            if (applicationUser == null)
+            var hotel = await _context.hotels
+                .SingleOrDefaultAsync(m => m.id == id);
+            if (hotel == null)
             {
                 return NotFound();
             }
 
-            return View(applicationUser);
+            return View(hotel);
         }
 
-        // POST: ApplicationUsers/Delete/5
+        // POST: hotels/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(string id)
+        public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var applicationUser = await _context.ApplicationUser.SingleOrDefaultAsync(m => m.Id == id);
-            _context.ApplicationUser.Remove(applicationUser);
+            var hotel = await _context.hotels.SingleOrDefaultAsync(m => m.id == id);
+            _context.hotels.Remove(hotel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool ApplicationUserExists(string id)
+        private bool hotelExists(int id)
         {
-            return _context.ApplicationUser.Any(e => e.Id == id);
+            return _context.hotels.Any(e => e.id == id);
         }
     }
 }

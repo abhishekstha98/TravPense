@@ -15,8 +15,54 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    @*
+        csss
+    *@
     <style>
-           #myBtn {
+        .dropbtn {
+            //background-color: #4CAF50;
+            color: white;
+            padding: 5px;
+            font-size: 16px;
+            border: none;
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f1f1f1;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+
+            .dropdown-content a {
+                color: teal;
+                padding: 12px 16px;
+                text-decoration: none;
+                display: block;
+            }
+
+                .dropdown-content a:hover {
+                    background-color: #ddd;
+                }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown:hover .dropbtn {
+            //background-color: teal;
+        }
+    </style>
+
+    <style>
+        #myBtn {
             display: none;
             position: fixed;
             bottom: 20px;
@@ -36,6 +82,7 @@
                 background-color: #ddd;
                 color: black;
             }
+
         .zoom1 {
             padding: 50px;
             transition: transform .2s; /* Animation */
@@ -84,10 +131,54 @@
                 <ul class="nav navbar-nav">
 
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Locations" asp-action="Index">Location</a></li>
-                    <li><a asp-area="" asp-controller="HotelModels" asp-action="Index">Hotel</a></li>
-                    <li><a asp-area="" asp-controller="ActivitiesModels" asp-action="Index">Activities</a></li>
-                    <li><a asp-area="" asp-controller="Manage" asp-action="Index">Administration</a></li>
+                    @*Destination drop down*@
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="Destinations" asp-action="Index">Destination</a>
+                        <ul class="dropbtn">
+                            <li class="dropdown-content">
+                                <a asp-area="" asp-controller="Destinations" asp-action="Index">Manage</a>
+                                <a asp-area="" asp-controller="Destinations" asp-action="UserView">View</a>
+
+                            </li>
+                        </ul>
+                    </li>
+
+                    @*loctypes drop down*@
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="loctypes" asp-action="Index">Location Type</a>
+                        <ul class="dropbtn">
+                            <li class="dropdown-content">
+                                <a asp-area="" asp-controller="loctypes" asp-action="Index">Manage</a>
+                                <a asp-area="" asp-controller="loctypes" asp-action="UserView">View</a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    @*hotels drop down*@
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="hotels" asp-action="Index">Hotel</a>
+                        <ul class="dropbtn">
+                            <li class="dropdown-content">
+                                <a asp-area="" asp-controller="hotels" asp-action="Index">Manage</a>
+                                <a asp-area="" asp-controller="hotels" asp-action="UserView">View</a>
+
+                            </li>
+                        </ul>
+                    </li>
+                    @*activities drop down*@
+                    <li class="dropdown">
+                        <a asp-area="" asp-controller="activities" asp-action="Index">Activities</a>
+                        <ul class="dropbtn">
+                            <li class="dropdown-content">
+                                <a asp-area="" asp-controller="activities" asp-action="Index">Manage</a>
+                                <a asp-area="" asp-controller="activities" asp-action="UserView">View</a>
+
+                            </li>
+                        </ul>
+                    </li>
+
+
+                    <li><a asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Administration</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
                 </ul>

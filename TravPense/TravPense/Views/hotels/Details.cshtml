@@ -1,0 +1,36 @@
+﻿@model TravPense.Models.hotel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>hotel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.HotelName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.HotelName)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Standard)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Standard)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PricePerDay)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PricePerDay)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

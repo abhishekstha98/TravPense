@@ -28,6 +28,14 @@ namespace TravPense.Data
         public DbSet<ActivitiesModel> activitiesModels { get; set; }
         public DbSet<HotelModel> hotelModels { get; set; }
         public DbSet<Location> locations { get; set; }
+
+        public DbSet<Destination> destinations { get; set; }
+
+        public DbSet<loctype> loctypes { get; set; }
+
+        public DbSet<hotel> hotels { get; set; }
+
+        public DbSet<activity> activities { get; set; }
        
 
     }

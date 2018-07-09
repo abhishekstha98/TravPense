@@ -1,0 +1,30 @@
+﻿@model TravPense.Models.Location
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Category Selector</h2>
+<style>
+    h2 {
+        text-align: center;
+        color: teal;
+        margin-top: 150px;
+    }
+</style>
+
+<p>
+
+
+    <label>Destination</label>
+    <select asp-for="locid" asp-items="@(new SelectList(ViewBag.listofitems,"locid","Destination"))"></select>
+    <input type="button" value="Submit" />
+
+</p>
+
+<style>
+    p {
+        text-align: center;
+        color: teal;
+        margin-top:20px;
+    }
+</style>
