@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace TravPense.Models
 {
-    public class loctype
+    public class locationtype
     {
-        public int id { get; set; }
+        [Key]
+        public int locid { get; set; }
         public string Loctype { get; set; }
         public virtual Destination destination  { get; set; }
         public virtual ICollection<activity> activities { get; set; }

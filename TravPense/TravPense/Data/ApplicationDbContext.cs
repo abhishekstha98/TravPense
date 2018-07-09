@@ -25,13 +25,10 @@ namespace TravPense.Data
         }
 
         public DbSet<TravPense.Models.ApplicationUser> ApplicationUser { get; set; }
-        public DbSet<ActivitiesModel> activitiesModels { get; set; }
-        public DbSet<HotelModel> hotelModels { get; set; }
-        public DbSet<Location> locations { get; set; }
 
         public DbSet<Destination> destinations { get; set; }
 
-        public DbSet<loctype> loctypes { get; set; }
+        public DbSet<locationtype> loctypes { get; set; }
 
         public DbSet<hotel> hotels { get; set; }
 

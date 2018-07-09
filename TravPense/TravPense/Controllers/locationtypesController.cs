@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,27 +10,22 @@ using TravPense.Models;
 
 namespace TravPense.Controllers
 {
-    public class loctypesController : Controller
+    public class locationtypesController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public loctypesController(ApplicationDbContext context)
+        public locationtypesController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        [Authorize(Roles = "superadmin")]
-        // GET: loctypes
+        // GET: locationtypes
         public async Task<IActionResult> Index()
         {
             return View(await _context.loctypes.ToListAsync());
         }
-        public async Task<IActionResult> UserView()
-        {
-            return View(await _context.destinations.ToListAsync());
-        }
 
-        // GET: loctypes/Details/5
+        // GET: locationtypes/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -39,39 +33,39 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var loctype = await _context.loctypes
-                .SingleOrDefaultAsync(m => m.id == id);
-            if (loctype == null)
+            var locationtype = await _context.loctypes
+                .SingleOrDefaultAsync(m => m.locid == id);
+            if (locationtype == null)
             {
                 return NotFound();
             }
 
-            return View(loctype);
+            return View(locationtype);
         }
 
-        // GET: loctypes/Create
+        // GET: locationtypes/Create
         public IActionResult Create()
         {
             return View();
         }
 
-        // POST: loctypes/Create
+        // POST: locationtypes/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,Loctype")] loctype loctype)
+        public async Task<IActionResult> Create([Bind("locid,Loctype")] locationtype locationtype)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(loctype);
+                _context.Add(locationtype);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(loctype);
+            return View(locationtype);
         }
 
-        // GET: loctypes/Edit/5
+        // GET: locationtypes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -79,22 +73,22 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var loctype = await _context.loctypes.SingleOrDefaultAsync(m => m.id == id);
-            if (loctype == null)
+            var locationtype = await _context.loctypes.SingleOrDefaultAsync(m => m.locid == id);
+            if (locationtype == null)
             {
                 return NotFound();
             }
-            return View(loctype);
+            return View(locationtype);
         }
 
-        // POST: loctypes/Edit/5
+        // POST: locationtypes/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,Loctype")] loctype loctype)
+        public async Task<IActionResult> Edit(int id, [Bind("locid,Loctype")] locationtype locationtype)
         {
-            if (id != loctype.id)
+            if (id != locationtype.locid)
             {
                 return NotFound();
             }
@@ -103,12 +97,12 @@ namespace TravPense.Controllers
             {
                 try
                 {
-                    _context.Update(loctype);
+                    _context.Update(locationtype);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!loctypeExists(loctype.id))
+                    if (!locationtypeExists(locationtype.locid))
                     {
                         return NotFound();
                     }
@@ -119,10 +113,10 @@ namespace TravPense.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(loctype);
+            return View(locationtype);
         }
 
-        // GET: loctypes/Delete/5
+        // GET: locationtypes/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -130,30 +124,30 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var loctype = await _context.loctypes
-                .SingleOrDefaultAsync(m => m.id == id);
-            if (loctype == null)
+            var locationtype = await _context.loctypes
+                .SingleOrDefaultAsync(m => m.locid == id);
+            if (locationtype == null)
             {
                 return NotFound();
             }
 
-            return View(loctype);
+            return View(locationtype);
         }
 
-        // POST: loctypes/Delete/5
+        // POST: locationtypes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var loctype = await _context.loctypes.SingleOrDefaultAsync(m => m.id == id);
-            _context.loctypes.Remove(loctype);
+            var locationtype = await _context.loctypes.SingleOrDefaultAsync(m => m.locid == id);
+            _context.loctypes.Remove(locationtype);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
-        private bool loctypeExists(int id)
+        private bool locationtypeExists(int id)
         {
-            return _context.loctypes.Any(e => e.id == id);
+            return _context.loctypes.Any(e => e.locid == id);
         }
     }
 }

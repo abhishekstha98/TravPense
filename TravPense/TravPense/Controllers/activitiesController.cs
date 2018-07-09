@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,15 +18,11 @@ namespace TravPense.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "superadmin")]
+
         // GET: activities
         public async Task<IActionResult> Index()
         {
             return View(await _context.activities.ToListAsync());
-        }
-        public async Task<IActionResult> UserView()
-        {
-            return View(await _context.destinations.ToListAsync());
         }
 
         // GET: activities/Details/5
@@ -39,7 +34,7 @@ namespace TravPense.Controllers
             }
 
             var activity = await _context.activities
-                .SingleOrDefaultAsync(m => m.id == id);
+                .SingleOrDefaultAsync(m => m.actid == id);
             if (activity == null)
             {
                 return NotFound();
@@ -59,7 +54,7 @@ namespace TravPense.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,ActivityName,Duration,PricePerHour")] activity activity)
+        public async Task<IActionResult> Create([Bind("actid,ActivityName,Duration,PricePerHour")] activity activity)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +73,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var activity = await _context.activities.SingleOrDefaultAsync(m => m.id == id);
+            var activity = await _context.activities.SingleOrDefaultAsync(m => m.actid == id);
             if (activity == null)
             {
                 return NotFound();
@@ -91,9 +86,9 @@ namespace TravPense.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,ActivityName,Duration,PricePerHour")] activity activity)
+        public async Task<IActionResult> Edit(int id, [Bind("actid,ActivityName,Duration,PricePerHour")] activity activity)
         {
-            if (id != activity.id)
+            if (id != activity.actid)
             {
                 return NotFound();
             }
@@ -107,7 +102,7 @@ namespace TravPense.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!activityExists(activity.id))
+                    if (!activityExists(activity.actid))
                     {
                         return NotFound();
                     }
@@ -130,7 +125,7 @@ namespace TravPense.Controllers
             }
 
             var activity = await _context.activities
-                .SingleOrDefaultAsync(m => m.id == id);
+                .SingleOrDefaultAsync(m => m.actid == id);
             if (activity == null)
             {
                 return NotFound();
@@ -144,7 +139,7 @@ namespace TravPense.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var activity = await _context.activities.SingleOrDefaultAsync(m => m.id == id);
+            var activity = await _context.activities.SingleOrDefaultAsync(m => m.actid == id);
             _context.activities.Remove(activity);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -152,7 +147,7 @@ namespace TravPense.Controllers
 
         private bool activityExists(int id)
         {
-            return _context.activities.Any(e => e.id == id);
+            return _context.activities.Any(e => e.actid == id);
         }
     }
 }

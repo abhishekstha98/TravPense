@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,17 +18,13 @@ namespace TravPense.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "superadmin")]
+
         // GET: hotels
         public async Task<IActionResult> Index()
         {
             return View(await _context.hotels.ToListAsync());
         }
 
-        public async Task<IActionResult> UserView()
-        {
-            return View(await _context.destinations.ToListAsync());
-        }
         // GET: hotels/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -39,7 +34,7 @@ namespace TravPense.Controllers
             }
 
             var hotel = await _context.hotels
-                .SingleOrDefaultAsync(m => m.id == id);
+                .SingleOrDefaultAsync(m => m.hotelid == id);
             if (hotel == null)
             {
                 return NotFound();
@@ -59,7 +54,7 @@ namespace TravPense.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,HotelName,Standard,PricePerDay")] hotel hotel)
+        public async Task<IActionResult> Create([Bind("hotelid,HotelName,Standard,PricePerDay")] hotel hotel)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +73,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var hotel = await _context.hotels.SingleOrDefaultAsync(m => m.id == id);
+            var hotel = await _context.hotels.SingleOrDefaultAsync(m => m.hotelid == id);
             if (hotel == null)
             {
                 return NotFound();
@@ -91,9 +86,9 @@ namespace TravPense.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,HotelName,Standard,PricePerDay")] hotel hotel)
+        public async Task<IActionResult> Edit(int id, [Bind("hotelid,HotelName,Standard,PricePerDay")] hotel hotel)
         {
-            if (id != hotel.id)
+            if (id != hotel.hotelid)
             {
                 return NotFound();
             }
@@ -107,7 +102,7 @@ namespace TravPense.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!hotelExists(hotel.id))
+                    if (!hotelExists(hotel.hotelid))
                     {
                         return NotFound();
                     }
@@ -130,7 +125,7 @@ namespace TravPense.Controllers
             }
 
             var hotel = await _context.hotels
-                .SingleOrDefaultAsync(m => m.id == id);
+                .SingleOrDefaultAsync(m => m.hotelid == id);
             if (hotel == null)
             {
                 return NotFound();
@@ -144,7 +139,7 @@ namespace TravPense.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var hotel = await _context.hotels.SingleOrDefaultAsync(m => m.id == id);
+            var hotel = await _context.hotels.SingleOrDefaultAsync(m => m.hotelid == id);
             _context.hotels.Remove(hotel);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -152,7 +147,7 @@ namespace TravPense.Controllers
 
         private bool hotelExists(int id)
         {
-            return _context.hotels.Any(e => e.id == id);
+            return _context.hotels.Any(e => e.hotelid == id);
         }
     }
 }

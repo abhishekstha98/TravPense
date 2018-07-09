@@ -1,30 +1,68 @@
-﻿@model TravPense.Models.Location
+﻿@model TravPense.Models.Destination
+
 @{
     ViewData["Title"] = "Index";
 }
 
 <h2>Category Selector</h2>
 <style>
-    h2 {
+    h2{
         text-align: center;
         color: teal;
         margin-top: 150px;
     }
+
+</style>
+<style>
+    form {
+        text-align: center;
+        color: teal;
+        margin-top: 20px;
+    }
 </style>
 
-<p>
+<form>
 
 
     <label>Destination</label>
-    <select asp-for="locid" asp-items="@(new SelectList(ViewBag.listofitems,"locid","Destination"))"></select>
+    <div>
+        <select id="destid" name="destinationlist" asp-for="destid" asp-items="@(new SelectList(ViewBag.listofitems,"destid","DestinationName"))">
+            <option>Select Destination</option>
+        </select>
+    </div>
+    <label>Hotels</label>
+    <div>
+        <select id="hotelid" name="hotellist" asp-for="destid" asp-items="@(new SelectList(String.Empty,"hotelid","HotelName"))">
+            <option>Select Loctype</option>
+        </select>
+    </div>
+
     <input type="button" value="Submit" />
 
-</p>
+</form>
+<script>
+    $(function () {
+        $("#destid").change(function () {
 
-<style>
-    p {
-        text-align: center;
-        color: teal;
-        margin-top:20px;
-    }
-</style>
+            var url = '@Url.Content("~/")' + "Category/GetHotelByid";
+
+            var ddlsource = "#destid";
+            $.getJSON(url, {
+                id = $(ddlsource).val()
+            }, function (data) {
+                var item = '';
+                $("#hotelid").empty();
+                $.each(data, function (i, row) {
+
+                    item += "<option value='" + row.value + "'>" + row.text + "</option>";
+                });
+                $("#hotelid").html(item);
+
+            })
+
+        });
+
+    });
+</script>
+
+

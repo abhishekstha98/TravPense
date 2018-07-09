@@ -1,8 +1,11 @@
-﻿namespace TravPense.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace TravPense.Models
 {
     public class hotel
     {
-        public int id { get; set; }
+        [Key]
+        public int hotelid { get; set; }
 
         public string HotelName { get; set; }
 

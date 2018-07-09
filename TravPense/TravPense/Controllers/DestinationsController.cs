@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -11,7 +10,6 @@ using TravPense.Models;
 
 namespace TravPense.Controllers
 {
-   
     public class DestinationsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,18 +18,12 @@ namespace TravPense.Controllers
         {
             _context = context;
         }
-        [Authorize(Roles = "superadmin")]
+
         // GET: Destinations
         public async Task<IActionResult> Index()
         {
             return View(await _context.destinations.ToListAsync());
         }
-
-        public async Task<IActionResult> UserView()
-        {
-            return View(await _context.destinations.ToListAsync());
-        }
-
 
         // GET: Destinations/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -42,7 +34,7 @@ namespace TravPense.Controllers
             }
 
             var destination = await _context.destinations
-                .SingleOrDefaultAsync(m => m.id == id);
+                .SingleOrDefaultAsync(m => m.destid == id);
             if (destination == null)
             {
                 return NotFound();
@@ -62,7 +54,7 @@ namespace TravPense.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("id,DestinationName")] Destination destination)
+        public async Task<IActionResult> Create([Bind("destid,DestinationName")] Destination destination)
         {
             if (ModelState.IsValid)
             {
@@ -81,7 +73,7 @@ namespace TravPense.Controllers
                 return NotFound();
             }
 
-            var destination = await _context.destinations.SingleOrDefaultAsync(m => m.id == id);
+            var destination = await _context.destinations.SingleOrDefaultAsync(m => m.destid == id);
             if (destination == null)
             {
                 return NotFound();
@@ -94,9 +86,9 @@ namespace TravPense.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("id,DestinationName")] Destination destination)
+        public async Task<IActionResult> Edit(int id, [Bind("destid,DestinationName")] Destination destination)
         {
-            if (id != destination.id)
+            if (id != destination.destid)
             {
                 return NotFound();
             }
@@ -110,7 +102,7 @@ namespace TravPense.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!DestinationExists(destination.id))
+                    if (!DestinationExists(destination.destid))
                     {
                         return NotFound();
                     }
@@ -133,7 +125,7 @@ namespace TravPense.Controllers
             }
 
             var destination = await _context.destinations
-                .SingleOrDefaultAsync(m => m.id == id);
+                .SingleOrDefaultAsync(m => m.destid == id);
             if (destination == null)
             {
                 return NotFound();
@@ -147,7 +139,7 @@ namespace TravPense.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var destination = await _context.destinations.SingleOrDefaultAsync(m => m.id == id);
+            var destination = await _context.destinations.SingleOrDefaultAsync(m => m.destid == id);
             _context.destinations.Remove(destination);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -155,7 +147,7 @@ namespace TravPense.Controllers
 
         private bool DestinationExists(int id)
         {
-            return _context.destinations.Any(e => e.id == id);
+            return _context.destinations.Any(e => e.destid == id);
         }
     }
 }

@@ -8,12 +8,13 @@ using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 using TravPense.Data;
 
-namespace TravPense.Data.Migrations
+namespace TravPense.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20180709103146_initial")]
+    partial class initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -128,38 +129,22 @@ namespace TravPense.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("TravPense.Models.ActivitiesModel", b =>
-                {
-                    b.Property<int>("ActivityID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("ActivityName");
-
-                    b.Property<string>("Loctype");
-
-                    b.Property<int>("Price");
-
-                    b.HasKey("ActivityID");
-
-                    b.ToTable("activitiesModels");
-                });
-
             modelBuilder.Entity("TravPense.Models.activity", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("actid")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("ActivityName");
 
-                    b.Property<DateTime>("Duration");
+                    b.Property<TimeSpan>("Duration");
 
-                    b.Property<int?>("Loctypeid");
+                    b.Property<int?>("Loctypelocid");
 
                     b.Property<int>("PricePerHour");
 
-                    b.HasKey("id");
+                    b.HasKey("actid");
 
-                    b.HasIndex("Loctypeid");
+                    b.HasIndex("Loctypelocid");
 
                     b.ToTable("activities");
                 });
@@ -219,19 +204,19 @@ namespace TravPense.Data.Migrations
 
             modelBuilder.Entity("TravPense.Models.Destination", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("destid")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("DestinationName");
 
-                    b.HasKey("id");
+                    b.HasKey("destid");
 
                     b.ToTable("destinations");
                 });
 
             modelBuilder.Entity("TravPense.Models.hotel", b =>
                 {
-                    b.Property<int>("id")
+                    b.Property<int>("hotelid")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("HotelName");
@@ -240,61 +225,27 @@ namespace TravPense.Data.Migrations
 
                     b.Property<string>("Standard");
 
-                    b.Property<int?>("destinationid");
+                    b.Property<int?>("destinationdestid");
 
-                    b.HasKey("id");
+                    b.HasKey("hotelid");
 
-                    b.HasIndex("destinationid");
+                    b.HasIndex("destinationdestid");
 
                     b.ToTable("hotels");
                 });
 
-            modelBuilder.Entity("TravPense.Models.HotelModel", b =>
-                {
-                    b.Property<int>("Hotelid")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Contact");
-
-                    b.Property<string>("Destination");
-
-                    b.Property<string>("HotelName");
-
-                    b.Property<int>("MaxPrice");
-
-                    b.Property<int>("MinPrice");
-
-                    b.HasKey("Hotelid");
-
-                    b.ToTable("hotelModels");
-                });
-
-            modelBuilder.Entity("TravPense.Models.Location", b =>
+            modelBuilder.Entity("TravPense.Models.locationtype", b =>
                 {
                     b.Property<int>("locid")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<string>("Destination");
-
                     b.Property<string>("Loctype");
+
+                    b.Property<int?>("destinationdestid");
 
                     b.HasKey("locid");
 
-                    b.ToTable("locations");
-                });
-
-            modelBuilder.Entity("TravPense.Models.loctype", b =>
-                {
-                    b.Property<int>("id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Loctype");
-
-                    b.Property<int?>("destinationid");
-
-                    b.HasKey("id");
-
-                    b.HasIndex("destinationid");
+                    b.HasIndex("destinationdestid");
 
                     b.ToTable("loctypes");
                 });
@@ -346,23 +297,23 @@ namespace TravPense.Data.Migrations
 
             modelBuilder.Entity("TravPense.Models.activity", b =>
                 {
-                    b.HasOne("TravPense.Models.loctype", "Loctype")
+                    b.HasOne("TravPense.Models.locationtype", "Loctype")
                         .WithMany("activities")
-                        .HasForeignKey("Loctypeid");
+                        .HasForeignKey("Loctypelocid");
                 });
 
             modelBuilder.Entity("TravPense.Models.hotel", b =>
                 {
                     b.HasOne("TravPense.Models.Destination", "destination")
                         .WithMany("Hotels")
-                        .HasForeignKey("destinationid");
+                        .HasForeignKey("destinationdestid");
                 });
 
-            modelBuilder.Entity("TravPense.Models.loctype", b =>
+            modelBuilder.Entity("TravPense.Models.locationtype", b =>
                 {
                     b.HasOne("TravPense.Models.Destination", "destination")
                         .WithMany("Loctypes")
-                        .HasForeignKey("destinationid");
+                        .HasForeignKey("destinationdestid");
                 });
 #pragma warning restore 612, 618
         }
