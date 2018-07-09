@@ -11,7 +11,7 @@ using TravPense.Models.AccountViewModels;
 using TravPense.Services;
 namespace TravPense.Controllers
 {
-    [Authorize]
+    //[Authorize]
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
