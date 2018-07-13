@@ -1,0 +1,85 @@
+﻿@model TravPense.Data.Model.Destination
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h4>Destination</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="DestName" class="control-label"></label>
+                <select id="destid" name="destname" asp-for="DestinationId" asp-items="@(new SelectList(@ViewBag.categorylist,"DestinationId","DestName"))"></select>
+              
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                
+                <label class="control-label">Location</label>
+                <select id="locid" name="locname" asp-for="LocationId" asp-items="@(new SelectList(string.Empty,"LocationId","LocType"))"></select>
+                
+
+
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                
+                <label class="control-label">Hotel</label>
+                <select id="hotid" name="hotname" asp-for="HotelId" asp-items="@(new SelectList(string.Empty,"HotelId","HotName"))"></select>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#destid").change(function () {
+            var url = '@Url.Content("~/")' + "Category/GetLocation";
+            var ddlsource = "#destid";
+            $.getJSON(url, { locationid: $(ddlsource).val() }, function (data) {
+                var item = '';
+                $("#locid").empty();
+                $.each(data, function (i, loc) {
+                    item += "<option value='" + loc.value + "'>" + loc.text + "</option>";
+                });
+                $("#locid").html(item);
+            });
+
+        });
+
+
+         $("#destid").change(function () {
+            var url = '@Url.Content("~/")' + "Category/GetHotel";
+            var ddlsource = "#destid";
+            $.getJSON(url, { hotelid: $(ddlsource).val() }, function (data) {
+                var item = '';
+                $("#hotid").empty();
+                $.each(data, function (i, hot) {
+                    item += "<option value='" + hot.value + "'>" + hot.text + "</option>";
+                });
+                $("#hotid").html(item);
+            });
+
+        });
+
+    });
+</script>
+
