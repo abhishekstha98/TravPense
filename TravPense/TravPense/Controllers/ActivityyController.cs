@@ -48,7 +48,7 @@ namespace TravPense.Controllers
         // GET: Activityy/Create
         public IActionResult Create()
         {
-            ViewData["LocationId"] = new SelectList(_context.location, "LocationId", "LocationId");
+            ViewData["LocationId"] = new SelectList(_context.location, "LocationId", "LocType");
             return View();
         }
 
@@ -65,7 +65,7 @@ namespace TravPense.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LocationId"] = new SelectList(_context.location, "LocationId", "LocationId", activityy.LocationId);
+            ViewData["LocationId"] = new SelectList(_context.location, "LocationId", "LocType", activityy.LocationId);
             return View(activityy);
         }
 
@@ -82,7 +82,7 @@ namespace TravPense.Controllers
             {
                 return NotFound();
             }
-            ViewData["LocationId"] = new SelectList(_context.location, "LocationId", "LocationId", activityy.LocationId);
+            ViewData["LocationId"] = new SelectList(_context.location, "LocationId", "LocType", activityy.LocationId);
             return View(activityy);
         }
 
@@ -118,7 +118,7 @@ namespace TravPense.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["LocationId"] = new SelectList(_context.location, "LocationId", "LocationId", activityy.LocationId);
+            ViewData["LocationId"] = new SelectList(_context.location, "LocationId", "LocType", activityy.LocationId);
             return View(activityy);
         }
 

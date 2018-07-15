@@ -51,6 +51,7 @@ namespace TravPense.Controllers
             activitieslist = (from act in _context.activityy where act.LocationId == activityid select act).ToList();
             activitieslist.Insert(0, new Activityy { ActivityyId = 0, ActivityName = "select an option" });
 
+            ViewBag.datasource = activitieslist;
             return Json(new SelectList(activitieslist, "ActivityyId", "ActivityName"));
         }
     }

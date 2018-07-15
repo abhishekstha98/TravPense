@@ -12,6 +12,7 @@ namespace TravPense.Data.Model
         [Display(Name ="Location Type")]
         public string LocType { get; set; }
         public Destination Destination { get; set; }
+        [Display(Name ="Destination Id")]
         public int DestinationId { get; set; }
 
         public ICollection<Activityy> activityys { get; set; }

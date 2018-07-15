@@ -10,23 +10,23 @@ using TravPense.Data.Model;
 
 namespace TravPense.Controllers
 {
-    public class HotelsController : Controller
+    public class HotelController : Controller
     {
         private readonly ApplicationDbContext _context;
 
-        public HotelsController(ApplicationDbContext context)
+        public HotelController(ApplicationDbContext context)
         {
             _context = context;
         }
 
-        // GET: Hotels
+        // GET: Hotel
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.hotel.Include(h => h.Destination);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Hotels/Details/5
+        // GET: Hotel/Details/5
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -45,14 +45,14 @@ namespace TravPense.Controllers
             return View(hotel);
         }
 
-        // GET: Hotels/Create
+        // GET: Hotel/Create
         public IActionResult Create()
         {
-            ViewData["DestinationId"] = new SelectList(_context.destination, "DestinationId", "DestinationId");
+            ViewData["DestinationId"] = new SelectList(_context.destination, "DestinationId", "DestName");
             return View();
         }
 
-        // POST: Hotels/Create
+        // POST: Hotel/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -65,11 +65,11 @@ namespace TravPense.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DestinationId"] = new SelectList(_context.destination, "DestinationId", "DestinationId", hotel.DestinationId);
+            ViewData["DestinationId"] = new SelectList(_context.destination, "DestinationId", "DestName", hotel.DestinationId);
             return View(hotel);
         }
 
-        // GET: Hotels/Edit/5
+        // GET: Hotel/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -82,11 +82,11 @@ namespace TravPense.Controllers
             {
                 return NotFound();
             }
-            ViewData["DestinationId"] = new SelectList(_context.destination, "DestinationId", "DestinationId", hotel.DestinationId);
+            ViewData["DestinationId"] = new SelectList(_context.destination, "DestinationId", "DestName", hotel.DestinationId);
             return View(hotel);
         }
 
-        // POST: Hotels/Edit/5
+        // POST: Hotel/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
@@ -118,11 +118,11 @@ namespace TravPense.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["DestinationId"] = new SelectList(_context.destination, "DestinationId", "DestinationId", hotel.DestinationId);
+            ViewData["DestinationId"] = new SelectList(_context.destination, "DestinationId", "DestName", hotel.DestinationId);
             return View(hotel);
         }
 
-        // GET: Hotels/Delete/5
+        // GET: Hotel/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -141,7 +141,7 @@ namespace TravPense.Controllers
             return View(hotel);
         }
 
-        // POST: Hotels/Delete/5
+        // POST: Hotel/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

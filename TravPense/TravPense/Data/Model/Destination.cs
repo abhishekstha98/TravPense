@@ -18,8 +18,6 @@ namespace TravPense.Data.Model
         public int HotelId { get; set; }
         [NotMapped]
         public int ActivityId { get; set; }
-        [NotMapped]
-        public bool Checkboxanswer { get; set; }
 
         public ICollection<Location> locations { get; set; }
         public ICollection<Hotel> hotels { get; set; }

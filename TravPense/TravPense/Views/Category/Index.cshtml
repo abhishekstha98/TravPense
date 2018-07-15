@@ -56,13 +56,24 @@
             <div class="form-group">
 
                 <label class="control-label">Activity</label>
-                <select style="margin-left:35px;" id="actid" name="actname" asp-for="ActivityId" asp-items="@(new SelectList(string.Empty,"ActivityId","ActivityName"))"></select>
+
+                <select multiple style="margin-left:35px;" id="actid" name="actname" asp-for="ActivityId" asp-items="@(new SelectList(string.Empty,"ActivityId","ActivityName"))"></select>
 
             </div>
         </form>
     </div>
 </div>
 
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Index" method="post" style="al">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input type="submit" value="submit"/>
+            </div>
+        </form>
+    </div>
+</div>
 
 <script src="~/lib/jquery/dist/jquery.js"></script>
 
@@ -110,7 +121,7 @@
                     item += "<option value='" + act.value + "'>" + act.text + "</option>";
                 });
                 $("#actid").html(item);
-               
+
             });
 
         });
