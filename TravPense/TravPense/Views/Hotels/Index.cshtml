@@ -1,0 +1,47 @@
+﻿@model IEnumerable<TravPense.Data.Model.Hotel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.HotName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Price)
+                </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Destination)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HotName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Destination.DestinationId)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.HotelId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.HotelId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.HotelId">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

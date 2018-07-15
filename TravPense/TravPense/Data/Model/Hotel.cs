@@ -12,6 +12,7 @@ namespace TravPense.Data.Model
         [Display(Name ="Hotel Name")]
         public string HotName { get; set; }
         public int Price { get; set; }
+        public Destination Destination { get; set; }
         public int DestinationId { get; set; }
 
 

@@ -11,6 +11,7 @@ namespace TravPense.Data.Model
         public int ActivityyId { get; set; }
         [Display(Name ="Activity")]
         public string ActivityName { get; set; }
+        public Location Location { get; set; }
         public int LocationId { get; set; }
     }
 }

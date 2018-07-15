@@ -5,6 +5,10 @@
     <UserSecretsId>aspnet-TravPense-7372ED76-D0D1-45FE-BD6F-87A139C4B6DA</UserSecretsId>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="cascade.css" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.8" />

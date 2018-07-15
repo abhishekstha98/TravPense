@@ -1,19 +1,4 @@
-﻿@inject SignInManager<ApplicationUser> SignInManager
-@{
+﻿@{ 
     ViewData["Title"] = "Home Page";
 }
-@if (!SignInManager.IsSignedIn(User))
-{
-    <div class="zoom1">
-        <a asp-area="" asp-controller="Account" asp-action="Register">Register</a>
-    </div>
-    <div class="zoom1">
-        <a asp-area="" asp-controller="Account" asp-action="Login">Log in</a>
-    </div>
-}
-else
-{
-    <a asp-area="" asp-controller="ApplicationUsers" asp-action="Index">Manage User</a>
-    @*<a asp-area="" asp-controller="Account" asp-action="Login">Manage Hotels</a>
-    <a asp-area="" asp-controller="Account" asp-action="Register">Manage Activities</a>*@
-} 
+<a style="text-decoration:none;" asp-controller="Category" asp-action="Index"><h1 style="color:teal; text-align:center;">Visit Places</h1></a>
